@@ -96,7 +96,7 @@ const Footer = () => {
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
-              © 2024 Maaleek. Tous droits réservés.
+              © 2025 Maaleek. Tous droits réservés.
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
