@@ -1,116 +1,98 @@
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer id="contact" className="bg-foreground text-background">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          
           {/* Logo et description */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <img 
               src="/lovable-uploads/69e1a16f-f967-49a5-b575-9a421cd49172.png" 
-              alt="Maaleek Logo" 
-              className="h-12 w-auto brightness-0 invert"
+              alt="Maaleek" 
+              className="h-8 w-auto brightness-0 invert"
             />
-            <p className="text-background/80 leading-relaxed">
-              Maaleek révolutionne le networking professionnel avec des cartes 
-              de visite numériques innovantes et faciles à partager.
+            <p className="text-background/70 leading-relaxed text-sm">
+              La première super application de networking professionnel avec 
+              des solutions simples, sécurisées et 100% numériques.
             </p>
-            <div className="flex space-x-4">
-              <Button variant="ghost" size="icon" className="text-background hover:text-primary hover:bg-background/10">
-                <Facebook className="h-5 w-5" />
+            <div className="flex space-x-3">
+              <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
+                <Twitter className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-background hover:text-primary hover:bg-background/10">
-                <Twitter className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
+                <Instagram className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="text-background hover:text-primary hover:bg-background/10">
-                <Instagram className="h-5 w-5" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-background hover:text-primary hover:bg-background/10">
-                <Linkedin className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
+                <Linkedin className="h-4 w-4" />
               </Button>
             </div>
           </div>
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-background">Navigation</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#fonctionnalites" className="text-background/80 hover:text-background transition-colors">
-                  Fonctionnalités
-                </a>
-              </li>
-              <li>
-                <a href="#telechargement" className="text-background/80 hover:text-background transition-colors">
-                  Télécharger
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Support
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Blog
-                </a>
-              </li>
+            <h3 className="text-lg font-semibold text-background">Produit</h3>
+            <ul className="space-y-3">
+              {[
+                { label: "Fonctionnalités", href: "#fonctionnalites" },
+                { label: "Télécharger", href: "#telechargement" },
+                { label: "Support", href: "#" },
+                { label: "Documentation", href: "#" }
+              ].map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm text-background/70 hover:text-background transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Entreprise */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-background">Support</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Centre d'aide
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Conditions d'utilisation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-background/80 hover:text-background transition-colors">
-                  Politique de confidentialité
-                </a>
-              </li>
+            <h3 className="text-lg font-semibold text-background">Entreprise</h3>
+            <ul className="space-y-3">
+              {[
+                { label: "À propos", href: "#" },
+                { label: "Blog", href: "#" },
+                { label: "Carrières", href: "#" },
+                { label: "Partenaires", href: "#" }
+              ].map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm text-background/70 hover:text-background transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-background">Contact</h3>
-            <div className="space-y-3">
+            <h3 className="text-lg font-semibold text-background">Contact</h3>
+            <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-primary" />
-                <span className="text-background/80">contact@maaleek.com</span>
+                <Mail className="h-4 w-4 text-background/70" />
+                <span className="text-sm text-background/70">contact@maaleek.com</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-primary" />
-                <span className="text-background/80">+33 1 23 45 67 89</span>
+                <Phone className="h-4 w-4 text-background/70" />
+                <span className="text-sm text-background/70">+33 1 23 45 67 89</span>
               </div>
               <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-primary" />
-                <span className="text-background/80">Paris, France</span>
+                <MapPin className="h-4 w-4 text-background/70" />
+                <span className="text-sm text-background/70">Paris, France</span>
               </div>
             </div>
-            <Button variant="hero" className="mt-4">
+            <Button variant="accent" size="sm" className="mt-4">
               Nous contacter
             </Button>
           </div>
         </div>
 
-        {/* Ligne de séparation */}
+        {/* Ligne de séparation et copyright */}
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
@@ -121,10 +103,10 @@ const Footer = () => {
                 Mentions légales
               </a>
               <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
-                Cookies
+                Confidentialité
               </a>
               <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
-                Plan du site
+                Cookies
               </a>
             </div>
           </div>
