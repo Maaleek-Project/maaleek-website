@@ -1,7 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Twitter, Instagram, Linkedin } from "lucide-react";
+import ContactModal from "./ContactModal";
+import Map from "./Map";
 
 const Footer = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <footer id="contact" className="bg-foreground text-background">
       <div className="container mx-auto px-6 py-16">
@@ -15,7 +20,7 @@ const Footer = () => {
               className="h-8 w-auto brightness-0 invert"
             />
             <p className="text-background/70 leading-relaxed text-sm">
-              La première super application de networking professionnel avec 
+              Maaleek par Saush - La première super application de networking professionnel avec 
               des solutions simples, sécurisées et 100% numériques.
             </p>
             <div className="flex space-x-3">
@@ -86,9 +91,19 @@ const Footer = () => {
                 <span className="text-sm text-background/70">Abidjan, Côte D'Ivoire</span>
               </div>
             </div>
-            <Button variant="accent" size="sm" className="mt-4">
+            <Button 
+              variant="accent" 
+              size="sm" 
+              className="mt-4"
+              onClick={() => setIsContactModalOpen(true)}
+            >
               Nous contacter
             </Button>
+            
+            {/* Carte interactive */}
+            <div className="mt-6">
+              <Map />
+            </div>
           </div>
         </div>
 
@@ -96,7 +111,7 @@ const Footer = () => {
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
-              © 2025 Maaleek. Tous droits réservés.
+              © 2025 Saush. Maaleek - Tous droits réservés.
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
@@ -112,6 +127,11 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)} 
+      />
     </footer>
   );
 };
