@@ -50,7 +50,7 @@ const Hero = () => {
                 onClick={() => setIsRegistrationOpen(true)}
               >
                 <Download className="h-5 w-5 mr-3" />
-                Télécharger maintenant
+                Rejoingnez-nous maintenant
                 <ArrowRight className="h-5 w-5 ml-3" />
               </Button>
               <Button 
