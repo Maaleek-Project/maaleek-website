@@ -40,26 +40,26 @@ const Map = ({ className = '' }: MapProps) => {
         <div className="text-center space-y-4">
           <MapPin className="h-12 w-12 text-primary mx-auto" />
           <h3 className="text-lg font-semibold">Carte interactive</h3>
-         // <p className="text-muted-foreground text-sm">
-          //  Pour afficher la carte de notre emplacement à Abidjan, veuillez entrer votre token Mapbox public.
-        //  </p>
-          // <div className="flex gap-2 max-w-md mx-auto">
-           // <Input
-           //   placeholder="Votre token Mapbox public"
-          //    value={mapboxToken}
-          //    onChange={(e) => setMapboxToken(e.target.value)}
-           //   type="password"
-       //     />
-          //  <Button onClick={handleTokenSubmit} disabled={!mapboxToken.trim()}>
-         //     Charger
-         //   </Button>
-         // </div>
-         // <p className="text-xs text-muted-foreground">
-          //  Obtenez votre token sur{' '}
-          //  <a href="https://mapbox.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-           //   mapbox.com
-          //  </a>
-        //  </p> 
+          <p className="text-muted-foreground text-sm">
+            Pour afficher la carte de notre emplacement à Abidjan, veuillez entrer votre token Mapbox public.
+          </p>
+          { /* <div className="flex gap-2 max-w-md mx-auto">
+            <Input
+             placeholder="Votre token Mapbox public"
+              value={mapboxToken}
+              onChange={(e) => setMapboxToken(e.target.value)}
+              type="password"
+            />
+            <Button onClick={handleTokenSubmit} disabled={!mapboxToken.trim()}>
+             Charger
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Obtenez votre token sur{' '}
+            <a href="https://mapbox.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              mapbox.com
+            </a>
+          </p> */ }
         </div>
       </div>
     );
