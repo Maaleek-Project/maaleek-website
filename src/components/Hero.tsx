@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import RegistrationModal from "./RegistrationModal";
 import { ArrowRight, Download, Star } from "lucide-react";
 
 const Hero = () => {
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen bg-background flex items-center justify-center overflow-hidden pt-16">
       {/* Background pattern subtil inspiré de Djamo */}
@@ -39,19 +43,22 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* CTA Buttons - Style Djamo */}
-        <div className="mb-16 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="accent" size="lg" className="text-base px-8 py-4 h-auto">
-              <Download className="h-5 w-5 mr-2" />
-              Télécharger maintenant
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-            <Button variant="minimal" size="lg" className="text-base px-8 py-4 h-auto">
-              Voir une démo
-            </Button>
-          </div>
-        </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-gradient-brand hover:opacity-90 transition-opacity text-lg px-8 py-6 h-auto font-semibold shadow-elegant"
+                onClick={() => setIsRegistrationOpen(true)}
+              >
+                Commencer gratuitement
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 text-lg px-8 py-6 h-auto font-medium"
+              >
+                Voir la démo
+              </Button>
+            </div>
 
         {/* Section de validation sociale - Style Djamo */}
         <div className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
@@ -93,6 +100,11 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      
+      <RegistrationModal 
+        isOpen={isRegistrationOpen} 
+        onClose={() => setIsRegistrationOpen(false)} 
+      />
     </section>
   );
 };
