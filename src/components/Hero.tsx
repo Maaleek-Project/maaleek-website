@@ -43,20 +43,22 @@ const Hero = () => {
           </p>
         </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button 
                 size="lg" 
-                className="bg-gradient-brand hover:opacity-90 transition-opacity text-lg px-8 py-6 h-auto font-semibold shadow-elegant"
+                className="bg-gradient-brand hover:opacity-90 transition-opacity text-lg px-8 py-6 h-auto font-semibold shadow-elegant rounded-full"
                 onClick={() => setIsRegistrationOpen(true)}
               >
-                Commencer gratuitement
+                <Download className="h-5 w-5 mr-3" />
+                Télécharger maintenant
+                <ArrowRight className="h-5 w-5 ml-3" />
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 text-lg px-8 py-6 h-auto font-medium"
+                className="border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 text-lg px-8 py-6 h-auto font-medium rounded-full"
               >
-                Voir la démo
+                Voir une démo
               </Button>
             </div>
 
