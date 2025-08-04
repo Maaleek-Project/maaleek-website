@@ -28,13 +28,21 @@ const Header = () => {
     }`}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo - Style Djamo minimaliste */}
+          {/* Logo avec nom - Style Djamo minimaliste */}
           <div className="flex items-center space-x-3">
             <img 
               src="/lovable-uploads/69e1a16f-f967-49a5-b575-9a421cd49172.png" 
               alt="Maaleek" 
               className="h-8 w-auto"
             />
+            <div className="flex flex-col">
+              <span className="text-lg font-bold bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#06b6d4] bg-clip-text text-transparent">
+                maaleek
+              </span>
+              <span className="text-xs text-muted-foreground font-medium -mt-1">
+                Digital Business Cards
+              </span>
+            </div>
           </div>
           
           {/* Navigation Desktop - Style épuré */}
