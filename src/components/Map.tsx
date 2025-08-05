@@ -1,78 +1,47 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { MapPin } from 'lucide-react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
-// Note: This is a placeholder for Mapbox. In a real implementation, you would use:
-// import mapboxgl from 'mapbox-gl';
-// import 'mapbox-gl/dist/mapbox-gl.css';
+// Fix for default markers in React Leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 interface MapProps {
   className?: string;
 }
 
 const Map = ({ className = '' }: MapProps) => {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const [mapboxToken, setMapboxToken] = useState('');
-  const [isTokenSet, setIsTokenSet] = useState(false);
-
-  const handleTokenSubmit = () => {
-    if (mapboxToken.trim()) {
-      setIsTokenSet(true);
-      // Here you would initialize the actual Mapbox map
-      // mapboxgl.accessToken = mapboxToken;
-      // initializeMap();
-    }
-  };
-
-  // Placeholder map initialization
-  useEffect(() => {
-    if (isTokenSet && mapContainer.current) {
-      // This is where you would initialize the real Mapbox map
-      // pointing to Abidjan coordinates: [4.0167, 5.3333]
-      console.log('Map would be initialized here with token:', mapboxToken);
-    }
-  }, [isTokenSet, mapboxToken]);
-
-  if (!isTokenSet) {
-    return (
-      <div className={`bg-muted/30 rounded-lg p-6 ${className}`}>
-        <div className="text-center space-y-4">
-          <MapPin className="h-12 w-12 text-primary mx-auto" />
-          <h3 className="text-lg font-semibold">Carte interactive</h3>
-          { /* <p className="text-muted-foreground text-sm">
-            Pour afficher la carte de notre emplacement à Abidjan, veuillez entrer votre token Mapbox public.
-          </p>
-           <div className="flex gap-2 max-w-md mx-auto">
-            <Input
-             placeholder="Votre token Mapbox public"
-              value={mapboxToken}
-              onChange={(e) => setMapboxToken(e.target.value)}
-              type="password"
-            />
-            <Button onClick={handleTokenSubmit} disabled={!mapboxToken.trim()}>
-             Charger
-            </Button>
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Obtenez votre token sur{' '}
-            <a href="https://mapbox.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              mapbox.com
-            </a>
-          </p> */ }
-        </div>
-      </div>
-    );
-  }
+  // Coordinates for Abidjan, Côte d'Ivoire
+  const position: [number, number] = [5.3333, -4.0167];
 
   return (
     <div className={`relative ${className}`}>
-      <div ref={mapContainer} className="w-full h-64 rounded-lg bg-muted/30 flex items-center justify-center">
-        <div className="text-center space-y-2">
-          <MapPin className="h-8 w-8 text-primary mx-auto" />
-          <p className="text-sm font-medium">Saush - Abidjan, Côte d'Ivoire</p>
-          <p className="text-xs text-muted-foreground">Carte Mapbox chargée ici</p>
-        </div>
+      <div className="w-full h-64 rounded-lg overflow-hidden border border-border">
+        <MapContainer
+          center={position}
+          zoom={13}
+          style={{ height: '100%', width: '100%' }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              <div className="text-center space-y-1">
+                <p className="font-semibold">Saush</p>
+                <p className="text-sm text-muted-foreground">Abidjan, Côte d'Ivoire</p>
+                <p className="text-xs text-muted-foreground">Créateurs de Maaleek</p>
+              </div>
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
     </div>
   );
