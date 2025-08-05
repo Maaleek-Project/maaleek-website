@@ -6,8 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { QrCode, Smartphone, ArrowRight, Loader2 } from "lucide-react";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { QrCode, Smartphone, ArrowRight, Loader2, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -23,18 +27,35 @@ interface Country {
   currency: string;
 }
 
+const formSchema = z.object({
+  civility: z.string().min(1, "Veuillez sélectionner une civilité"),
+  name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
+  surname: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
+  password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères"),
+});
+
 const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCountryId, setSelectedCountryId] = useState("");
   const [countries, setCountries] = useState<Country[]>([]);
   const [isLoadingCountries, setIsLoadingCountries] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
-  const [step, setStep] = useState<"phone" | "otp">("phone");
+  const [step, setStep] = useState<"phone" | "otp" | "form">("phone");
   const [otpCode, setOtpCode] = useState("");
   const [timer, setTimer] = useState(45);
   const [canResendOtp, setCanResendOtp] = useState(false);
   const [isValidatingOtp, setIsValidatingOtp] = useState(false);
   const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      civility: "",
+      name: "",
+      surname: "",
+      password: "",
+    },
+  });
 
   // Fetch countries on component mount
   useEffect(() => {
@@ -208,18 +229,11 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
         const data = await response.json();
         
         if (data.success) {
+          setStep("form");
           toast({
-            title: "Inscription réussie",
-            description: "Votre compte a été créé avec succès",
+            title: "Code validé",
+            description: "Veuillez compléter vos informations",
           });
-          onClose();
-          // Reset form
-          setStep("phone");
-          setPhoneNumber("");
-          setSelectedCountryId("");
-          setOtpCode("");
-          setTimer(45);
-          setCanResendOtp(false);
         } else {
           toast({
             title: "Code incorrect",
@@ -237,6 +251,60 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
       } finally {
         setIsValidatingOtp(false);
       }
+    }
+  };
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsRegistering(true);
+    try {
+      const response = await fetch('https://api.maaleek.com/auth/sign-up', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          civility: values.civility,
+          login: phoneNumber,
+          country_id: selectedCountryId,
+          password: values.password,
+          name: values.name,
+          surname: values.surname,
+          entity_id: "54b7c4fc-4765-4667-b0af-263ff0bdea6b"
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        toast({
+          title: "Inscription réussie",
+          description: "Votre compte a été créé avec succès",
+        });
+        onClose();
+        // Reset form
+        setStep("phone");
+        setPhoneNumber("");
+        setSelectedCountryId("");
+        setOtpCode("");
+        setTimer(45);
+        setCanResendOtp(false);
+        form.reset();
+      } else {
+        toast({
+          title: "Erreur",
+          description: data.message || "Erreur lors de l'inscription",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error during final registration:', error);
+      toast({
+        title: "Erreur",
+        description: "Erreur de connexion",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRegistering(false);
     }
   };
 
@@ -320,7 +388,7 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
                   )}
                 </Button>
               </>
-            ) : (
+            ) : step === "otp" ? (
               <div className="space-y-6">
                 <div className="text-center space-y-2">
                   <h3 className="text-lg font-semibold">Code de vérification</h3>
@@ -393,6 +461,111 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
                   </Button>
                 </div>
               </div>
+            ) : (
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <div className="text-center space-y-2 mb-6">
+                    <User className="h-8 w-8 mx-auto text-primary" />
+                    <h3 className="text-lg font-semibold">Informations personnelles</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Complétez votre profil pour finaliser l'inscription
+                    </p>
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="civility"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Civilité</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Sélectionnez votre civilité" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="Mr">Mr</SelectItem>
+                            <SelectItem value="Mme">Mme</SelectItem>
+                            <SelectItem value="Mlle">Mlle</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Votre nom" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="surname"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Prénom</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Votre prénom" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mot de passe</FormLabel>
+                        <FormControl>
+                          <Input type="password" placeholder="Votre mot de passe" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="flex gap-2 pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setStep("otp")}
+                      className="flex-1"
+                    >
+                      Retour
+                    </Button>
+                    <Button 
+                      type="submit"
+                      disabled={isRegistering}
+                      className="flex-1"
+                    >
+                      {isRegistering ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Création...
+                        </>
+                      ) : (
+                        <>
+                          Créer le compte
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </Form>
             )}
           </TabsContent>
 
