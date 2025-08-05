@@ -31,6 +31,9 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [step, setStep] = useState<"phone" | "otp">("phone");
   const [otpCode, setOtpCode] = useState("");
+  const [timer, setTimer] = useState(45);
+  const [canResendOtp, setCanResendOtp] = useState(false);
+  const [isValidatingOtp, setIsValidatingOtp] = useState(false);
   const { toast } = useToast();
 
   // Fetch countries on component mount
@@ -67,6 +70,23 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
     }
   }, [isOpen, toast]);
 
+  // Timer effect for OTP resend
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (step === "otp" && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev <= 1) {
+            setCanResendOtp(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [step, timer]);
+
   const handlePhoneSubmit = async () => {
     if (phoneNumber && selectedCountryId) {
       setIsRegistering(true);
@@ -85,10 +105,23 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
         const data = await response.json();
         
         if (data.success) {
+          // Vérifier si l'utilisateur existe déjà
+          if (data.content && data.content.user) {
+            toast({
+              title: "Numéro déjà utilisé",
+              description: "Ce numéro de téléphone est déjà associé à un compte",
+              variant: "destructive",
+            });
+            return;
+          }
+          
           setStep("otp");
+          setTimer(45);
+          setCanResendOtp(false);
+          const maskedNumber = "****" + phoneNumber.slice(-2);
           toast({
             title: "Code envoyé",
-            description: "Un code OTP a été envoyé à votre numéro",
+            description: `Un message a été envoyé au numéro ${maskedNumber}`,
           });
         } else {
           toast({
@@ -110,20 +143,100 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
     }
   };
 
-  const handleOtpSubmit = () => {
-    if (otpCode.length === 5) {
-      // Here you would verify the OTP with the backend
-      console.log('OTP Code:', otpCode);
-      toast({
-        title: "Inscription réussie",
-        description: "Votre compte a été créé avec succès",
-      });
-      onClose();
-      // Reset form
-      setStep("phone");
-      setPhoneNumber("");
-      setSelectedCountryId("");
-      setOtpCode("");
+  const handleResendOtp = async () => {
+    if (canResendOtp && phoneNumber && selectedCountryId) {
+      setIsRegistering(true);
+      try {
+        const response = await fetch('https://api.maaleek.com/auth/initiated', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            login: phoneNumber,
+            country_id: selectedCountryId,
+          }),
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          setTimer(45);
+          setCanResendOtp(false);
+          const maskedNumber = "****" + phoneNumber.slice(-2);
+          toast({
+            title: "Code renvoyé",
+            description: `Un nouveau message a été envoyé au numéro ${maskedNumber}`,
+          });
+        } else {
+          toast({
+            title: "Erreur",
+            description: data.message || "Erreur lors du renvoi",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        console.error('Error resending OTP:', error);
+        toast({
+          title: "Erreur",
+          description: "Erreur de connexion",
+          variant: "destructive",
+        });
+      } finally {
+        setIsRegistering(false);
+      }
+    }
+  };
+
+  const handleOtpSubmit = async () => {
+    if (otpCode.length === 5 && phoneNumber && selectedCountryId) {
+      setIsValidatingOtp(true);
+      try {
+        const response = await fetch('https://api.maaleek.com/auth/validate-code', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            code: otpCode,
+            country_id: selectedCountryId,
+            value: phoneNumber,
+            type: "verified_number"
+          }),
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          toast({
+            title: "Inscription réussie",
+            description: "Votre compte a été créé avec succès",
+          });
+          onClose();
+          // Reset form
+          setStep("phone");
+          setPhoneNumber("");
+          setSelectedCountryId("");
+          setOtpCode("");
+          setTimer(45);
+          setCanResendOtp(false);
+        } else {
+          toast({
+            title: "Code incorrect",
+            description: data.message || "Le code OTP saisi est incorrect",
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
+        console.error('Error validating OTP:', error);
+        toast({
+          title: "Erreur",
+          description: "Erreur de connexion",
+          variant: "destructive",
+        });
+      } finally {
+        setIsValidatingOtp(false);
+      }
     }
   };
 
@@ -212,7 +325,7 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
                 <div className="text-center space-y-2">
                   <h3 className="text-lg font-semibold">Code de vérification</h3>
                   <p className="text-muted-foreground text-sm">
-                    Entrez le code à 5 chiffres envoyé au +{selectedCountry?.code} {phoneNumber}
+                    Entrez le code à 5 chiffres envoyé au +{selectedCountry?.code} ****{phoneNumber.slice(-2)}
                   </p>
                 </div>
 
@@ -228,6 +341,31 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
                   </InputOTP>
                 </div>
 
+                {/* Timer et bouton de renvoi */}
+                <div className="text-center">
+                  {timer > 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      Renvoyer le code dans {timer}s
+                    </p>
+                  ) : (
+                    <Button
+                      variant="link"
+                      onClick={handleResendOtp}
+                      disabled={isRegistering}
+                      className="text-sm"
+                    >
+                      {isRegistering ? (
+                        <>
+                          <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                          Renvoi...
+                        </>
+                      ) : (
+                        "Renvoyer le code"
+                      )}
+                    </Button>
+                  )}
+                </div>
+
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
@@ -238,11 +376,20 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationModalProps) => {
                   </Button>
                   <Button 
                     onClick={handleOtpSubmit}
-                    disabled={otpCode.length !== 5}
+                    disabled={otpCode.length !== 5 || isValidatingOtp}
                     className="flex-1"
                   >
-                    Vérifier
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                    {isValidatingOtp ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Vérification...
+                      </>
+                    ) : (
+                      <>
+                        Vérifier
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>
