@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer id="contact" className="bg-foreground text-background">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           
           {/* Logo et description */}
           <div className="space-y-6">
@@ -20,8 +20,9 @@ const Footer = () => {
               className="h-8 w-auto brightness-0 invert"
             />
             <p className="text-background/70 leading-relaxed text-sm">
-              Maaleek par Saush - La première super application de networking professionnel avec 
-              des solutions simples, sécurisées et 100% numériques.
+              Maaleek La première super application de networking professionnel avec des solutions simples, sécurisées et 100% numériques. Si vous souhaitez en savoir plus sur l'équipe Maaleek qui vous accompagne ou si vous avez la moindre question, contactez-nous directement via le chat intégré dans l'application Maaleek ou par email à l'adresse support@maaleek.com
+              Maaleek est édité conjointement par SAUSH SARL.
+              Votre carte de visite digitale Maaleek est propulsée SAUSH SARL pour garantir fiabilité et sécurité.
             </p>
             <div className="flex space-x-3">
               <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
@@ -55,15 +56,33 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Entreprise */}
+          {/* SOCIETE */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-background">Entreprise</h3>
+            <h3 className="text-lg font-semibold text-background">SOCIETE</h3>
             <ul className="space-y-3">
               {[
                 { label: "À propos", href: "#" },
                 { label: "Blog", href: "#" },
                 { label: "Carrières", href: "#" },
-                { label: "Partenaires", href: "#" }
+                { label: "Partenaires", href: "#" },
+                { label: "Politique de confidentialité", href: "#" },
+                { label: "Conditions générales d'utilisation", href: "#" }
+              ].map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm text-background/70 hover:text-background transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* RESSOURCES */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-background">RESSOURCES</h3>
+            <ul className="space-y-3">
+              {[
+                { label: "Apprendre", href: "/apprendre" }
               ].map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-sm text-background/70 hover:text-background transition-colors">
@@ -111,7 +130,7 @@ const Footer = () => {
         <div className="border-t border-background/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
-              © 2025 Saush. Maaleek - Tous droits réservés.
+              © 2025 Saush Technologies. Tous droits réservés
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-background/60 hover:text-background text-sm transition-colors">
