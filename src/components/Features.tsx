@@ -14,42 +14,42 @@ const Features = () => {
     {
       icon: QrCode,
       title: "QR Code Intelligent",
-      description: "Générez automatiquement des QR codes pour partager vos cartes instantanément."
+      description: "1 scan = 1 impression durable. Crée un lien instantané avec ton interlocuteur."
     },
     {
       icon: Palette,
-      title: "Design Personnalisable", 
-      description: "Créez des cartes uniques avec nos modèles professionnels et options de personnalisation."
+      title: "Design personnalisable", 
+      description: "Montre ta personnalité. Sois professionnel, stylé ou créatif mais surtout, sois unique."
     },
     {
       icon: Cloud,
       title: "Synchronisation Cloud",
-      description: "Vos cartes sont sauvegardées et synchronisées sur tous vos appareils."
+      description: "Ta carte, toujours à jour, toujours disponible, sur tous tes appareils."
     },
     {
       icon: Shield,
       title: "Sécurisé et Privé",
-      description: "Vos données sont protégées avec un chiffrement de bout en bout."
+      description: "Tes données t'appartiennent. Elles sont cryptées et protégées par défaut."
     },
     {
       icon: Zap,
-      title: "Partage Instantané",
-      description: "Partagez vos informations en un tap via NFC, QR code ou lien direct."
+      title: "Partage instantané",
+      description: "Envoie ta carte comme un éclair via QR ou lien direct. Pas besoin que l'autre ait l'app."
     },
     {
       icon: Users,
-      title: "Gestion de Contacts",
-      description: "Organisez et gérez facilement tous vos contacts professionnels."
+      title: "Gestion des contacts intelligentes",
+      description: "Fini les contacts oubliés. Organise, classe, retrouve tout ton réseau sans effort."
     },
     {
       icon: Globe,
-      title: "Multi-langues",
-      description: "Interface disponible en plusieurs langues pour un usage international."
+      title: "Interface Multi-langues",
+      description: "Tu voyages ? Tu bosses à l'international ? Ton image pro voyage avec toi."
     },
     {
       icon: BarChart,
-      title: "Analytiques",
-      description: "Suivez les performances de vos cartes avec des statistiques détaillées."
+      title: "Statistiques et Analytiques",
+      description: "Qui a vu ta carte ? Combien de fois ? Quand ? Tu sais tout. Et tu agis mieux."
     }
   ];
 
@@ -64,13 +64,10 @@ const Features = () => {
             Fonctionnalités
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6 leading-tight">
-            Tout ce dont vous avez besoin
-            <br />
-            <span className="text-accent">pour votre networking</span>
+            <span className="text-accent">Swipe, scan, connecte.</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Découvrez toutes les fonctionnalités qui font de Maaleek 
-            l'outil de référence pour le networking professionnel moderne.
+            Avec Maaleek, ton réseau grandit à la vitesse de ton ambition avec les fonctionnalités essentielles pour créer, gérer et maximiser vos connexions professionnelles.
           </p>
         </div>
 
@@ -101,18 +98,17 @@ const Features = () => {
           <div className="bg-gradient-to-br from-muted/50 to-muted/30 rounded-3xl p-12 text-center border border-border">
             <div className="max-w-2xl mx-auto">
               <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
-                Prêt à révolutionner votre networking ?
+                Et si votre prochaine opportunité dépendait d'un scan ?
               </h3>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                Rejoignez des milliers de professionnels qui utilisent déjà Maaleek 
-                pour créer des connexions authentiques et durables.
+                Rejoignez des milliers de professionnels qui ont déjà choisi Maaleek pour réseauter sans effort, sans papier, sans perdre une seule rencontre.
               </p>
               
               {/* Statistiques */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="bg-card rounded-2xl p-6 border border-border">
-                  <div className="text-3xl font-bold text-foreground mb-2">50K+</div>
-                  <div className="text-sm text-muted-foreground">Utilisateurs actifs</div>
+                  <div className="text-3xl font-bold text-foreground mb-2">200+</div>
+                  <div className="text-sm text-muted-foreground">Testeurs</div>
                 </div>
                 <div className="bg-card rounded-2xl p-6 border border-border">
                   <div className="text-3xl font-bold text-foreground mb-2">1M+</div>

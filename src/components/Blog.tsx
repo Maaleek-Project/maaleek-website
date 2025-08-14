@@ -39,10 +39,10 @@ const Blog = () => {
         {/* En-tête de section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-6">
-            Actualités & <span className="text-accent">Insights</span>
+            Mieux réseauter, <span className="text-accent">chaque jour</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Restez informé des dernières tendances du networking digital et découvrez comment optimiser vos connexions professionnelles.
+            Retrouvez nos contenus pour comprendre les évolutions du réseau numérique et optimiser vos connexions de manière stratégique.
           </p>
         </div>
 

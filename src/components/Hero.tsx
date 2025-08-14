@@ -29,9 +29,9 @@ const Hero = () => {
         {/* Titre principal - Style Djamo moderne */}
         <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-foreground leading-tight mb-6">
-            <span className="text-accent">Partagez</span> vos cartes de visite
+            <span className="text-accent">Donnez</span> votre carte une seule fois,
             <br />
-            dans une application unique
+            soyez contacté immédiatement
           </h1>
         </div>
 
@@ -50,7 +50,7 @@ const Hero = () => {
                 onClick={() => setIsRegistrationOpen(true)}
               >
                 <Download className="h-5 w-5 mr-3" />
-                Rejoingnez-nous maintenant
+                Rejoindre la bêta
                 <ArrowRight className="h-5 w-5 ml-3" />
               </Button>
               <Button 
@@ -66,7 +66,7 @@ const Hero = () => {
         <div className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
           <div className="bg-card border border-border rounded-2xl p-8 shadow-soft max-w-2xl mx-auto">
             <div className="text-center mb-6">
-              <div className="text-3xl font-bold text-foreground mb-2">+50 000 téléchargements</div>
+              <div className="text-3xl font-bold text-foreground mb-2">Places limitées à 200 testeurs</div>
               <div className="flex justify-center items-center gap-2 mb-4">
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (

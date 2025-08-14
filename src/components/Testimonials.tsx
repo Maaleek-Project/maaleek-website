@@ -30,10 +30,10 @@ const Testimonials = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Ce que disent nos utilisateurs
+            ✨ Ils ont vécu ce que vous <span className="text-accent">recherchez</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Découvrez comment Maaleek transforme le networking professionnel en Côte d'Ivoire
+            Autonomie, visibilité, connexions vraies. Ce que Maaleek a changé pour eux, et ce que ça peut changer pour vous.
           </p>
         </div>
 

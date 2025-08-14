@@ -8,11 +8,10 @@ const Download = () => {
         {/* En-tête de section - Style Djamo */}
         <div className="text-center mb-20">
           <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-6">
-            Téléchargez <span className="text-accent">Maaleek</span>
+            📲 Téléchargez <span className="text-accent">Maaleek</span> et entrez dans l'ère du réseautage intelligent
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Disponible gratuitement sur toutes les plateformes. 
-            Commencez votre networking moderne dès aujourd'hui.
+            Rejoignez la bêta avant le 28 février 2026 et obtenez un accès premium gratuit pendant 3 mois
           </p>
         </div>
 
@@ -29,7 +28,7 @@ const Download = () => {
                     <span className="text-sm font-medium text-accent uppercase tracking-wider">Application Mobile</span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">
-                    L'expérience complète de networking
+                    L'application complète, dans votre poche
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Toutes les fonctionnalités optimisées pour une utilisation mobile intuitive et performante.
@@ -51,10 +50,10 @@ const Download = () => {
                 {/* Avantages */}
                 <div className="space-y-3 pt-4">
                   {[
-                    "Gratuit à télécharger et utiliser",
-                    "Aucune limite sur les cartes créées", 
-                    "Synchronisation automatique",
-                    "Support client 24/7"
+                    "📍 Créez et partagez votre carte en un scan",
+                    "📊 Suivez qui consulte votre profil", 
+                    "📁 Gérez votre réseau sans stress",
+                    "🌍 Fonctionne partout, même sans app côté contact"
                   ].map((feature, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
