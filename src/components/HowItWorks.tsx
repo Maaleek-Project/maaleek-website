@@ -4,13 +4,13 @@ const HowItWorks = () => {
   const steps = [
     {
       icon: Download,
-      title: "1️⃣ Téléchargez Maaleek",
+      title: "Téléchargez Maaleek",
       description: "Installez gratuitement l'application sur iOS ou Android. En moins de 2 minutes, vous créez votre profil pro, stylé, complet et prêt à impressionner.",
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&h=400"
     },
     {
       icon: Scan,
-      title: "2️⃣ Partagez en un scan",
+      title: "Partagez en un scan",
       description: "Activez votre QR code intelligent ou scannez celui de vos contacts. En un geste, vos informations passent… et la connexion est faite.",
       image: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&w=600&h=400"
     },
@@ -22,7 +22,7 @@ const HowItWorks = () => {
     },
     {
       icon: Network,
-      title: "4️⃣ Faites grandir votre influence",
+      title: "Faites grandir votre influence",
       description: "Chaque rencontre devient un levier. Développez votre réseau, ouvrez des portes, soyez visible, pro, connecté — sans friction, sans papier.",
       image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=600&h=400"
     }
