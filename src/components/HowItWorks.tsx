@@ -16,7 +16,7 @@ const HowItWorks = () => {
     },
     {
       icon: Share,
-      title: "3️⃣ Organisez votre réseau",
+      title: "Organisez votre réseau",
       description: "Classez, étiquetez, retrouvez et suivez tous vos contacts. Vous ne perdez plus jamais une opportunité.",
       image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&h=400"
     },
