@@ -65,8 +65,9 @@ const Footer = () => {
                 { label: "Blog", href: "#" },
                 { label: "Carrières", href: "#" },
                 { label: "Partenaires", href: "#" },
-                { label: "Politique de confidentialité", href: "#" },
-                { label: "Conditions générales d'utilisation", href: "#" }
+                { label: "Politique de confidentialité", href: "/politique-confidentialite" },
+                { label: "Conditions générales d'utilisation", href: "/conditions-generales" },
+                { label: "Mentions légales", href: "/mentions-legales" }
               ].map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-sm text-background/70 hover:text-background transition-colors">
