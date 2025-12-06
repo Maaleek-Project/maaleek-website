@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import ContactModal from "./ContactModal";
 import Map from "./Map";
 
@@ -25,15 +25,21 @@ const Footer = () => {
               Votre carte de visite digitale Maaleek est propulsée SAUSH SARL pour garantir fiabilité et sécurité.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
-                <Instagram className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
-                <Linkedin className="h-4 w-4" />
-              </Button>
+              <a href="https://www.facebook.com/maaleekapp" target="_blank" rel="noopener noreferrer">
+                <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
+                  <Facebook className="h-4 w-4" />
+                </Button>
+              </a>
+              <a href="https://www.instagram.com/maaleekapp/" target="_blank" rel="noopener noreferrer">
+                <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
+                  <Instagram className="h-4 w-4" />
+                </Button>
+              </a>
+              <a href="https://www.linkedin.com/company/maaleekapp" target="_blank" rel="noopener noreferrer">
+                <Button variant="ghost" size="icon" className="text-background/70 hover:text-background hover:bg-background/10 h-9 w-9">
+                  <Linkedin className="h-4 w-4" />
+                </Button>
+              </a>
             </div>
           </div>
 
