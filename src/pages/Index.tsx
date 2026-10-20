@@ -1,19 +1,23 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import Download from "@/components/Download";
-import Footer from "@/components/Footer";
+import Hero from "@/components/sections/Hero";
+import Comparison from "@/components/sections/Comparison";
+import Features from "@/components/sections/Features";
+import HowItWorks from "@/components/sections/HowItWorks";
+import Business from "@/components/sections/Business";
+import Privacy from "@/components/sections/Privacy";
+import Faq from "@/components/sections/Faq";
+import FinalCta from "@/components/sections/FinalCta";
 
-const Index = () => {
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <Hero />
-      <Features />
-      <Download />
-      <Footer />
-    </div>
-  );
-};
+const Index = () => (
+  <>
+    <Hero />
+    <Comparison />
+    <Features />
+    <HowItWorks />
+    <Business />
+    <Privacy />
+    <Faq />
+    <FinalCta />
+  </>
+);
 
 export default Index;

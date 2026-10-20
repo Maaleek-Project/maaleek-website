@@ -17,8 +17,8 @@ FROM nginx:alpine
 # Copie des fichiers buildés dans nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Optionnel : remplace la config nginx par défaut si besoin
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Config nginx : redirige toutes les routes (ex. /mentions-legales) vers index.html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose le port 80
 EXPOSE 80
